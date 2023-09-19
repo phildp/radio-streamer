@@ -18,8 +18,8 @@ Before you get started with RadioStreamer, ensure that you have the following pr
 
 You can download the RadioStreamer binary for your platform from the [Releases](https://github.com/phildp/radio-streamer/releases) page.
 
-- [Download RadioStreamer for Linux](https://github.com/phildp/radio-streamer/releases/download/latest/radio-streamer_linux_amd64.tar.gz)
-- [Download RadioStreamer for macOS](https://github.com/phildp/radio-streamer/releases/download/latest/radio-streamer_darwin_amd64.tar.gz)
+- [Download RadioStreamer for Linux](https://github.com/phildp/radio-streamer/releases/latest/download/radio-streamer_0.0.4_linux_amd64.tar.gz)
+- [Download RadioStreamer for macOS](https://github.com/phildp/radio-streamer/releases/latest/download/radio-streamer_0.0.4_darwin_amd64.tar.gz)
 
 Choose the appropriate binary for your operating system and architecture.
 
@@ -34,16 +34,10 @@ To install RadioStreamer on Linux and MacOS without requiring the user to have G
    tar -xzf radio-streamer_0.0.4_linux_amd64.tar.gz  # For Linux
    tar -xzf radio-streamer_0.0.4_darwin_amd64.tar.gz # For macOS
 
-2. Make the downloaded executables executable:
-
-   ```bash
-   chmod +x radio
-   ```
-
 3. Move the executables to a location in your PATH to make them accessible system-wide:
 
 	```bash
-	sudo mv radio-streamer_0.0.4_linux_amd64.tar.gz /usr/local/bin/radio
+	sudo mv radio-streamer_0.0.4_linux_amd64/radio-streamer /usr/local/bin/radio
 	```
 
 ## Configuration
@@ -75,7 +69,7 @@ To install RadioStreamer on Linux and MacOS without requiring the user to have G
 
    Add more URLs and station names with the stations you want to stream.
 
-   > :info: You can also add a stream file from the local filesystem. Some stations don't provide a remote URL.
+   > :information_source: You can also add a stream file from the local filesystem. Some stations don't provide a remote URL.
 
 
 ## Usage
@@ -101,8 +95,7 @@ We welcome contributions from the community. If you want to contribute to RadioS
 
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix.
-3. Make your changes and ensure that the code passes all tests.
-4. Submit a pull request to the main repository.
+3. Submit a pull request to the main repository.
 
 ## License
 
