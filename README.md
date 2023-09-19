@@ -14,14 +14,25 @@ Before you get started with RadioStreamer, ensure that you have the following pr
 
 - [VLC Media Player](https://www.videolan.org/vlc/index.html): Make sure VLC is installed and accessible from the command line.
 
+## Download
+
+You can download the RadioStreamer binary for your platform from the [Releases](https://github.com/phildp/radio-streamer/releases) page.
+
+- [Download RadioStreamer for Linux](https://github.com/phildp/radio-streamer/releases/download/latest/radio-streamer_linux_amd64.tar.gz)
+- [Download RadioStreamer for macOS](https://github.com/phildp/radio-streamer/releases/download/latest/radio-streamer_darwin_amd64.tar.gz)
+
+Choose the appropriate binary for your operating system and architecture.
+
+
 ## Installation
+To install RadioStreamer on Linux and MacOS without requiring the user to have Go installed, download the pre-built executables and add them to your PATH.
 
-To install RadioStreamer on Linux and MacOS without requiring the user to have Go installed, you can download pre-built executables and add them to your PATH.
+1. Download the binary for your platform from the links above.
+2. Extract the binary from the downloaded .tar.gz file:
 
-1. Download the pre-built executables:
-   
-   - [Binary](https://github.com/phildp/radio-streamer/releases/latest/download/radio)
-
+   ```bash
+   tar -xzf radio-streamer_0.0.4_linux_amd64.tar.gz  # For Linux
+   tar -xzf radio-streamer_0.0.4_darwin_amd64.tar.gz # For macOS
 
 2. Make the downloaded executables executable:
 
@@ -32,7 +43,7 @@ To install RadioStreamer on Linux and MacOS without requiring the user to have G
 3. Move the executables to a location in your PATH to make them accessible system-wide:
 
 	```bash
-	sudo mv radiostreamer-linux /usr/local/bin/radiostreamer
+	sudo mv radio-streamer_0.0.4_linux_amd64.tar.gz /usr/local/bin/radio
 	```
 
 ## Configuration
@@ -43,11 +54,7 @@ To install RadioStreamer on Linux and MacOS without requiring the user to have G
 	mkdir -p ~/.config/radio
 	```
 
-2. Copy the `stations.yml` to the config folder:
-	
-	```bash
-	cp stations.yml ~/.config/radio/
-	```
+2. Download the `stations.yml` and move it to `~/.config/radio/`
 
 
 3. The config file looks like this:
