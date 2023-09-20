@@ -51,6 +51,13 @@ To install RadioStreamer on Linux and MacOS without requiring the user to have G
 	radio --help
 	```
 
+## FAQ
+**In MacOS I see the following screen:**
+
+![Alt text](image.png)
+
+Go to **System Settings > Privacy & Security > Privacy > Developer Tools** and then add and enable your preferred Terminal.
+
 ## Configuration
 
 1. Create a configuration folder in your home directory if it doesn't already exist:
