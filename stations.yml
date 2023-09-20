@@ -7,7 +7,7 @@ stations:
     filename: http://netradio.live24.gr/athinaradio
   kiss:
     title: Kiss FM
-    filename: /home/filippos/Downloads/kiss.pls
+    filename: /home/phildp/Downloads/kiss.pls
   pepper:
     title: Pepper 96.6
     filename: http://pepper966.live24.gr/pepper9660
