@@ -13,6 +13,9 @@ RadioStreamer is an open-source command-line tool written in Go that allows you 
 Before you get started with RadioStreamer, ensure that you have the following prerequisites installed on your system:
 
 - [VLC Media Player](https://www.videolan.org/vlc/index.html): Make sure VLC is installed and accessible from the command line.
+> :information_source: To be able to access it from the command line, if you haven't already, just add a symbolink link to the bin folder:
+>
+> ```bash sudo ln -s /Applications/VLC.app/Contents/MacOS/VLC /usr/local/bin/vlc```
 
 ## Download
 
@@ -33,11 +36,19 @@ To install RadioStreamer on Linux and MacOS without requiring the user to have G
    ```bash
    tar -xzf radio-streamer_0.0.4_linux_amd64.tar.gz  # For Linux
    tar -xzf radio-streamer_0.0.4_darwin_amd64.tar.gz # For macOS
+   ```
 
-3. Move the executables to a location in your PATH to make them accessible system-wide:
+3. Change directory and move the executable to a location in your PATH to make them accessible system-wide:
 
 	```bash
+	cp radio-streamer_0.0.4_linux_amd64.tar.gz/
 	sudo mv radio-streamer_0.0.4_linux_amd64/radio-streamer /usr/local/bin/radio
+	```
+
+4. Validate that everything works:
+
+	```bash
+	radio --help
 	```
 
 ## Configuration
