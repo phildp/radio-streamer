@@ -76,7 +76,7 @@ To install RadioStreamer on Linux and MacOS without requiring Go, download a pre
 
    > :information_source: You can also add a stream file from the local filesystem. Some stations don't provide a remote URL.
 
-   The default config path is `~/.config/radio/stations.yml`.
+   The default config path is `~/.config/radio/stations.yml`. You can override it with the `--config` flag.
 
 ## Usage
 
