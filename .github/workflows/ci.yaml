@@ -20,11 +20,8 @@ jobs:
         with:
           go-version: "1.26.5"
 
-      - name: Vet
-        run: go vet ./...
+      - name: Install Linux audio dependencies
+        run: sudo apt-get update && sudo apt-get install -y libasound2-dev
 
-      - name: Test
-        run: go test ./...
-
-      - name: Build
-        run: go build ./...
+      - name: Check code
+        run: make check
