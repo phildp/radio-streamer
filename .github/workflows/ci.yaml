@@ -7,9 +7,25 @@ on:
     branches: [main]
 
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
+  check:
+    name: check (${{ matrix.goos }}/${{ matrix.goarch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            goos: linux
+            goarch: amd64
+          - runner: ubuntu-24.04-arm
+            goos: linux
+            goarch: arm64
+          - runner: macos-latest
+            goos: darwin
+            goarch: arm64
+          - runner: macos-latest
+            goos: darwin
+            goarch: amd64
 
     steps:
       - name: Check out code
@@ -21,7 +37,11 @@ jobs:
           go-version: "1.26.5"
 
       - name: Install Linux audio dependencies
+        if: matrix.goos == 'linux'
         run: sudo apt-get update && sudo apt-get install -y libasound2-dev
 
       - name: Check code
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
         run: make check
