@@ -11,4 +11,5 @@ RUN go mod download
 
 COPY . .
 
+# Default: run the same checks as CI and `make ci`.
 CMD ["make", "check"]
