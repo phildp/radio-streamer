@@ -1,6 +1,6 @@
 module github.com/spf13/radio
 
-go 1.16
+go 1.23
 
 require (
 	github.com/mitchellh/go-homedir v1.1.0
