@@ -33,11 +33,16 @@ func Play(ctx context.Context, source string, volume float64) error {
 	if err != nil {
 		return err
 	}
-	defer streamer.Close()
-
 	if err := speaker.Init(format.SampleRate, format.SampleRate.N(time.Second/10)); err != nil {
+		streamer.Close()
 		return fmt.Errorf("init speaker: %w", err)
 	}
+
+	stop := func() {
+		streamer.Close()
+		speaker.Close()
+	}
+	defer stop()
 
 	done := make(chan struct{})
 	speaker.Play(beep.Seq(withVolume(streamer, volume), beep.Callback(func() {
@@ -46,9 +51,6 @@ func Play(ctx context.Context, source string, volume float64) error {
 
 	select {
 	case <-ctx.Done():
-		speaker.Lock()
-		speaker.Clear()
-		speaker.Unlock()
 		return ctx.Err()
 	case <-done:
 		return nil
