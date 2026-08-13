@@ -1,9 +1,13 @@
 package cmd
 
 import (
+	"context"
 	"fmt"
-	"os/exec"
+	"os"
+	"os/signal"
+	"syscall"
 
+	"github.com/phildp/radio-streamer/internal/player"
 	"github.com/spf13/cobra"
 )
 
@@ -28,11 +32,15 @@ var startCmd = &cobra.Command{
 			return fmt.Errorf("radio station %q doesn't exist in config", station)
 		}
 
-		vlc := exec.Command("vlc", "-I", "dummy", rs.Filename, fmt.Sprintf("--gain=%g", volume))
 		fmt.Println("Starting radio service...")
 		fmt.Printf("Listening to %s (volume: %d%%)\n", rs.Title, int(volume*100))
-		if err := vlc.Run(); err != nil {
-			return fmt.Errorf("run vlc: %w", err)
+		fmt.Println("Press Ctrl+C to stop.")
+
+		ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+		defer stop()
+
+		if err := player.Play(ctx, rs.Filename, volume); err != nil && err != context.Canceled {
+			return fmt.Errorf("play stream: %w", err)
 		}
 		return nil
 	},

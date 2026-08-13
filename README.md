@@ -1,21 +1,17 @@
 # RadioStreamer
 
-RadioStreamer is an open-source command-line tool written in Go that allows you to stream radio stations using VLC as the streaming platform. With RadioStreamer, you can easily configure your favorite radio stations through a YAML configuration file, making it a convenient way to enjoy your preferred radio channels on Linux and MacOS.
+RadioStreamer is an open-source command-line tool written in Go that streams radio stations using native Go audio playback. Configure your favorite stations through a YAML file and listen from the terminal on Linux and macOS.
 
 ## Features
 
-- Stream radio stations using VLC as the backend.
+- Stream radio stations with native Go audio playback (no external media player required).
 - Configure your own list of radio stations through a YAML configuration file.
-- Cross-platform support for Linux and MacOS.
+- Cross-platform support for Linux and macOS.
 
 ## Prerequisites
 
-Before you get started with RadioStreamer, ensure that you have the following prerequisites installed on your system:
-
-- [VLC Media Player](https://www.videolan.org/vlc/index.html): Make sure VLC is installed and accessible from the command line.
-> :information_source: In MacOS, to be able to access it from the command line, if you haven't already, just add a symbolic link to the bin folder:
->
-> ```sudo ln -s /Applications/VLC.app/Contents/MacOS/VLC /usr/local/bin/vlc```
+- Go 1.26+ (for building from source)
+- macOS or Linux with working audio output
 
 ## Download
 
@@ -23,7 +19,7 @@ You can download the RadioStreamer binary for your platform from the [Releases](
 
 ## Installation
 
-To install RadioStreamer on Linux and MacOS without requiring Go, download a pre-built executable and add it to your PATH.
+To install RadioStreamer on Linux and macOS without requiring Go, download a pre-built executable and add it to your PATH.
 
 1. Download the latest release archive for your platform from the [Releases](https://github.com/phildp/radio-streamer/releases) page.
 2. Extract the binary from the downloaded `.tar.gz` file:
@@ -74,7 +70,7 @@ To install RadioStreamer on Linux and MacOS without requiring Go, download a pre
 
    Add more URLs and station names with the stations you want to stream.
 
-   > :information_source: You can also add a stream file from the local filesystem. Some stations don't provide a remote URL.
+   > :information_source: You can also point to a local playlist file (`.pls`, `.m3u`) or audio file. HLS (`.m3u8`) streams are not supported.
 
    The default config path is `~/.config/radio/stations.yml`. You can override it with the `--config` flag.
 
@@ -88,17 +84,21 @@ radio start --station "myfavoriteradio" --volume 0.8
 
 Replace `"myfavoriteradio"` with the name of the station you want to listen to, and `0.8` with the desired volume level (a value between 0 and 1, where 0 is mute and 1 is full volume). If you do not specify the `--volume` flag, the default volume will be used.
 
+Press **Ctrl+C** to stop playback.
+
 You can also list all the available stations from the config file:
 
 ```bash
 radio list
 ```
 
-## FAQ
+## Supported stream formats
 
-**On macOS, Terminal may be blocked from controlling VLC.**
+- MP3 and Ogg Vorbis over HTTP/HTTPS (most internet radio stations)
+- Local audio files (MP3, WAV, FLAC, Ogg)
+- Playlist files (`.pls`, `.m3u`)
 
-Go to **System Settings > Privacy & Security > Privacy > Developer Tools** and then add and enable your preferred Terminal.
+HLS (`.m3u8`) streams are not supported.
 
 ## Contributing
 
@@ -114,7 +114,7 @@ RadioStreamer is licensed under the [MIT License](LICENSE). Feel free to use, mo
 
 ## Acknowledgments
 
-- RadioStreamer is built upon the [VLC Media Player](https://www.videolan.org/vlc/index.html), which is a powerful and versatile media player.
-- RadioStreamer uses the [spf13/cobra](https://github.com/spf13/cobra) library for building powerful and efficient command-line applications.
+- Audio playback powered by [gopxl/beep](https://github.com/gopxl/beep).
+- RadioStreamer uses the [spf13/cobra](https://github.com/spf13/cobra) library for building command-line applications.
 
 Enjoy streaming your favorite radio stations with RadioStreamer! If you encounter any issues or have suggestions for improvement, please open an issue on the GitHub repository.
