@@ -19,79 +19,74 @@ Before you get started with RadioStreamer, ensure that you have the following pr
 
 ## Download
 
-You can download the RadioStreamer binary for your platform from the [Releases](https://github.com/phildp/radio-streamer/releases) page.
-
-- [Download RadioStreamer for Linux](https://github.com/phildp/radio-streamer/releases/latest/download/radio-streamer_0.0.4_linux_amd64.tar.gz)
-- [Download RadioStreamer for macOS](https://github.com/phildp/radio-streamer/releases/latest/download/radio-streamer_0.0.4_darwin_amd64.tar.gz)
-
-Choose the appropriate binary for your operating system and architecture.
-
+You can download the RadioStreamer binary for your platform from the [Releases](https://github.com/phildp/radio-streamer/releases) page. Choose the archive matching your operating system and architecture (e.g. `radio-streamer_<version>_linux_amd64.tar.gz` or `radio-streamer_<version>_darwin_arm64.tar.gz`).
 
 ## Installation
-To install RadioStreamer on Linux and MacOS without requiring the user to have Go installed, download the pre-built executables and add them to your PATH.
 
-1. Download the binary for your platform from the links above.
-2. Extract the binary from the downloaded .tar.gz file:
+To install RadioStreamer on Linux and MacOS without requiring Go, download a pre-built executable and add it to your PATH.
+
+1. Download the latest release archive for your platform from the [Releases](https://github.com/phildp/radio-streamer/releases) page.
+2. Extract the binary from the downloaded `.tar.gz` file:
 
    ```bash
-   tar -xzf radio-streamer_0.0.4_linux_amd64.tar.gz  # For Linux
-   tar -xzf radio-streamer_0.0.4_darwin_amd64.tar.gz # For macOS
+   tar -xzf radio-streamer_*_linux_amd64.tar.gz   # Linux (adjust arch if needed)
+   tar -xzf radio-streamer_*_darwin_amd64.tar.gz  # macOS Intel
+   tar -xzf radio-streamer_*_darwin_arm64.tar.gz  # macOS Apple Silicon
    ```
 
-3. Change directory and move the executable to a location in your PATH to make them accessible system-wide:
+3. Move the executable to a location in your PATH:
 
-	```bash
-	cp radio-streamer_0.0.4_linux_amd64.tar.gz/
-	sudo mv radio-streamer_0.0.4_linux_amd64/radio-streamer /usr/local/bin/radio
-	```
+   ```bash
+   sudo mv radio-streamer /usr/local/bin/radio
+   ```
 
 4. Validate that everything works:
 
-	```bash
-	radio --help
-	```
+   ```bash
+   radio --help
+   ```
 
 ## Configuration
 
 1. Create a configuration folder in your home directory if it doesn't already exist:
 
-	```bash
-	mkdir -p ~/.config/radio
-	```
+   ```bash
+   mkdir -p ~/.config/radio
+   ```
 
-2. Download the `stations.yml` and move it to `~/.config/radio/`
-
+2. Copy the sample `stations.yml` from this repository to `~/.config/radio/stations.yml`.
 
 3. The config file looks like this:
 
-    ```yaml
-    stations:
-	  imagine: 
-	    title: Imagine 89.7
-	    filename: http://jett.shoutca.st:8004
-	  parapolitika: 
-	    title: Parapolitika FM
-	    filename: http://netradio.live24.gr/athinaradio
-	  kiss:
-	    title: Kiss FM
-	    filename: /home/phildp/.config/radio/kiss.pls
-      # Add more stations as needed
-    ```
+   ```yaml
+   stations:
+     imagine:
+       title: Imagine 89.7
+       filename: http://jett.shoutca.st:8004
+     parapolitika:
+       title: Parapolitika FM
+       filename: http://netradio.live24.gr/athinaradio
+     kiss:
+       title: Kiss FM
+       filename: /home/user/.config/radio/kiss.pls
+     # Add more stations as needed
+   ```
 
    Add more URLs and station names with the stations you want to stream.
 
    > :information_source: You can also add a stream file from the local filesystem. Some stations don't provide a remote URL.
 
+   The default config path is `~/.config/radio/stations.yml`.
 
 ## Usage
 
-To start streaming your favorite radio stations, use the `radio start` command followed by the station name and the optional --volume flag:
+To start streaming your favorite radio stations, use the `radio start` command followed by the station name and the optional `--volume` flag:
 
 ```bash
 radio start --station "myfavoriteradio" --volume 0.8
 ```
 
-Replace `"myfavoriteradio"` with the name of the station you want to listen to, and `0.8` with the desired volume level (a value between 0 and 1, where 0 is mute and 1 is full volume). If you do not specify the --volume flag, the default volume will be used.
+Replace `"myfavoriteradio"` with the name of the station you want to listen to, and `0.8` with the desired volume level (a value between 0 and 1, where 0 is mute and 1 is full volume). If you do not specify the `--volume` flag, the default volume will be used.
 
 You can also list all the available stations from the config file:
 
@@ -100,12 +95,10 @@ radio list
 ```
 
 ## FAQ
-**In MacOS I see the following screen:**
 
-![Alt text](doc/mac_error.png)
+**On macOS, Terminal may be blocked from controlling VLC.**
 
 Go to **System Settings > Privacy & Security > Privacy > Developer Tools** and then add and enable your preferred Terminal.
-
 
 ## Contributing
 
