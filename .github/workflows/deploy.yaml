@@ -19,22 +19,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: "1.26.5"
-
-      - name: Install build dependencies
-        run: |
-          sudo dpkg --add-architecture arm64
-          sudo apt-get update
-          sudo apt-get install -y libasound2-dev gcc-aarch64-linux-gnu libasound2-dev:arm64
+      - name: Build release image
+        run: docker build -f Dockerfile.goreleaser -t radio-streamer-goreleaser .
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v6
-        with:
-          distribution: goreleaser
-          version: latest
-          args: release --clean
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/app" \
+            -w /app \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            radio-streamer-goreleaser release --clean
