@@ -9,7 +9,8 @@ RUN dpkg --add-architecture arm64 \
        libc6-dev-arm64-cross \
        libasound2-dev \
        libasound2-dev:arm64 \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && git config --global --add safe.directory '*'
 
 ARG GORELEASER_VERSION=2.17.1
 RUN curl -sfL "https://github.com/goreleaser/goreleaser/releases/download/v${GORELEASER_VERSION}/goreleaser_Linux_x86_64.tar.gz" \
