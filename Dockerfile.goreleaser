@@ -1,0 +1,19 @@
+FROM golang:1.26-bookworm
+
+RUN dpkg --add-architecture arm64 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       ca-certificates \
+       git \
+       gcc-aarch64-linux-gnu \
+       libc6-dev-arm64-cross \
+       libasound2-dev \
+       libasound2-dev:arm64 \
+    && rm -rf /var/lib/apt/lists/*
+
+ARG GORELEASER_VERSION=2.17.1
+RUN curl -sfL "https://github.com/goreleaser/goreleaser/releases/download/v${GORELEASER_VERSION}/goreleaser_Linux_x86_64.tar.gz" \
+    | tar -xz -C /usr/local/bin goreleaser
+
+WORKDIR /app
+ENTRYPOINT ["goreleaser"]
