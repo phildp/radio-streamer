@@ -12,6 +12,8 @@ jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
+    container:
+      image: golang:1.26-bookworm
 
     steps:
       - name: Check out code
@@ -19,15 +21,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Build release image
-        run: docker build -f Dockerfile.goreleaser -t radio-streamer-goreleaser .
+      - name: Install build dependencies
+        run: |
+          dpkg --add-architecture arm64
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            ca-certificates \
+            git \
+            gcc-aarch64-linux-gnu \
+            libc6-dev-arm64-cross \
+            libasound2-dev \
+            libasound2-dev:arm64 \
+            curl
+          curl -sfL "https://github.com/goreleaser/goreleaser/releases/download/v2.17.1/goreleaser_Linux_x86_64.tar.gz" \
+            | tar -xz -C /usr/local/bin goreleaser
+
+      - name: Configure git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Run GoReleaser
-        run: |
-          docker run --rm \
-            -v "${{ github.workspace }}:/app" \
-            -w /app \
-            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
-            --entrypoint sh \
-            radio-streamer-goreleaser \
-            -c 'git config --global --add safe.directory /app && exec goreleaser release --clean'
+        run: goreleaser release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
