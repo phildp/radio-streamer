@@ -28,4 +28,6 @@ jobs:
             -v "${{ github.workspace }}:/app" \
             -w /app \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
-            radio-streamer-goreleaser release --clean
+            --entrypoint sh \
+            radio-streamer-goreleaser \
+            -c 'git config --global --add safe.directory /app && exec goreleaser release --clean'
